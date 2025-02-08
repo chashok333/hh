@@ -54,7 +54,7 @@ export default function Router() {
     {
       path: 'employee',
       element: (
-        <RoleBasedGuard roles={['SuperAdmin','Server']}>
+        <RoleBasedGuard roles={['superadmin', 'staff']}>
           <LogoOnlyLayout />
         </RoleBasedGuard>
       ),

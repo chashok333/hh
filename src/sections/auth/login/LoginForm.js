@@ -28,8 +28,13 @@ export default function LoginForm() {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const phoneRegex = /^[0-9]{10}$/;
+  
   const LoginSchema = Yup.object().shape({
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+    email: Yup.string().test('email-or-phone', 'Must be a valid email or phone number', (value) => {
+      if (!value) return false;
+      return Yup.string().email().isValidSync(value) || phoneRegex.test(value);
+    }),
     password: Yup.string().required('Password is required'),
   });
 
@@ -74,7 +79,7 @@ export default function LoginForm() {
       <Stack spacing={3}>
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
 
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField name="email" label="Email or Phone number" />
 
         <RHFTextField
           name="password"
