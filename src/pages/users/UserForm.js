@@ -13,6 +13,7 @@ import useBbgUsers from '../../hooks/bbgUsers';
 import httpSer from "src/utils/httpSer";
 import BBAutocomplete from 'src/components/BBAutocomplete';
 import { servicesList } from './constants';
+import { errorTrans } from 'src/common/commonMethods';
 // ----------------------------------------------------------------------
 
 UserForm.propTypes = {
@@ -86,6 +87,7 @@ export default function UserForm({ isEdit, role: currentUser, closeModel, handle
                 setLoader(false)
             })
                 .catch((err) => {
+                    // console.log(err, errorTrans(err))
                     setLoader(false)
                     enqueueSnackbar(errorTrans(err), { variant: 'error' });
                 });

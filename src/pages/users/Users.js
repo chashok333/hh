@@ -44,6 +44,8 @@ import { useSnackbar } from 'notistack';
 import { errorTrans } from 'src/common/commonMethods';
 import MenuOptions from "src/components/MenuOptions";
 import ResetPassword from 'src/components/ResetPassword';
+import { getUsersfromDb } from 'src/redux/slices/bbg';
+import { useDispatch } from 'src/redux/store';
 // import RoleForm from './RoleForm';
 // ----------------------------------------------------------------------
 
@@ -55,10 +57,12 @@ export default function Users() {
     const [users, setUsers] = useState([]);
     const [loader, setLoader] = useState(false);
     const [passWordModal, setPassWordModal] = useState({ open: false, data: null });
+    const dispatch = useDispatch();
 
     const handleSuccess = () => {
         handleCloseForm();
         loadUsers();
+        dispatch(getUsersfromDb())
     }
     const handleCloseForm = () => {
         setOpenAddForm({
